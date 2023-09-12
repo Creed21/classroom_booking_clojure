@@ -5,7 +5,7 @@ Clojure, Mustache, and Ring/Jetty-Adapter are all important components in web de
 
 Clojure is a dynamic, functional programming language that runs on the Java Virtual Machine (JVM). It emphasizes immutability and persistent data structures, making it an excellent choice for building robust and scalable applications.
 Mustache:
-
+ 
 # Mustache:
 is a logic-less templating language. It allows for the separation of presentation and logic in web applications. Mustache templates are easy to read and write, making them a popular choice for rendering HTML in web applications.
 # Ring/Jetty-Adapter:
