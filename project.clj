@@ -9,5 +9,9 @@
                  [org.clojure/java.jdbc "0.7.12"]
                  [org.postgresql/postgresql "42.2.23"]
                  [de.ubercode.clostache/clostache "1.4.0"]
-                 [ring/ring-jetty-adapter "1.9.6"]]
-  :repl-options {:init-ns aiproject.core})
+                 [ring/ring-jetty-adapter "1.9.6"]
+                 ]
+  :repl-options {:init-ns aiproject.core}
+  :profiles {:dev {:dependencies [[lein-midje "3.2.1"]]
+                   :plugins [[lein-midje "3.2.1"]]}}
+  )

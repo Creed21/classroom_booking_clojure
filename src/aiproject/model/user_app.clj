@@ -13,10 +13,9 @@
              ", telephone: " (:telephone row) ", role: " (:role row)
              )))
 
-(defn find [username]
-  (jdbc/insert! db/db-spec
-                :classroom_booking.user_app
-                ["username = ?" username ]))
+(defn find-user-by-username [username]
+  (jdbc/query db/db-spec
+              ["SELECT * FROM user_table WHERE username = ?" username]))
 
 (defn insert-data [data]
   (jdbc/insert! db/db-spec
