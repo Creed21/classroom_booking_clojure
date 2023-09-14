@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reservation Type Analytics</title>
+    <!-- Add your CSS stylesheets here -->
+</head>
+<body>
+<!-- Header Section -->
+<header id="site-header" class="fixed-top">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a href="/home" class="navbar-brand">
+                <i class="fas fa-graduation-cap"></i>
+                Fon ClassRoom Booking
+            </a>
+            <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon fa icon-expand fa-bars"></span>
+                <span class="navbar-toggler-icon fa icon-close fa-times"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll">
+                    <li class="nav-item">
+                        <a class="nav-link {{#isHome}}active{{/isHome}}" href="/home" aria-current="page">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{#isClassRooms}}active{{/isClassRooms}}" href="/classRooms">ClassRooms</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{#isCreateClassRoom}}active{{/isCreateClassRoom}}" href="/createClassRoom">Create ClassRoom</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{#isReservations}}active{{/isReservations}}" href="/reservations">Reservations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{#isUser}}active{{/isUser}}" href="/user">User</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{#isCreateUser}}active{{/isCreateUser}}" href="/createUser">Create User</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- toggle switch for light and dark theme -->
+            <div class="cont-ser-position">
+                <nav class="navigation">
+                    <div class="theme-switch-wrapper">
+                        <label class="theme-switch" for="checkbox">
+                            <input type="checkbox" id="checkbox">
+                            <div class="mode-container">
+                                <i class="gg-sun"></i>
+                                <i class="gg-moon"></i>
+                            </div>
+                        </label>
+                    </div>
+                </nav>
+            </div>
+            <!-- //toggle switch for light and dark theme -->
+        </nav>
+    </div>
+</header>
+
+<!-- inner banner -->
+<section class="inner-banner py-1">
+    <div class="w3l-breadcrumb py-lg-5">
+        <div class="container pt-4 pb-sm-4">
+            <h4 class="inner-text-title pt-5">Reservation Type Analytics</h4>
+            <ul class="breadcrumbs-custom-path">
+                <li><a href="/home">Home</a></li>
+                <li class="active"><i class="fas fa-angle-right"></i>Reservation Type Analytics</li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!-- inner banner -->
+<section id="reservation-type-stats">
+    <h2>Reservation Type Statistics</h2>
+    <!-- Add your analytics data here -->
+    <ul>
+        {{#reservation_type_analytics}}
+            <li>Type ID: {{id}}</li>
+            <li>Type Description: {{description}}</li>
+            <li>Number of Reservations: {{numReservations}}</li>
+            <!-- Add more reservation type analytics data as needed -->
+        {{/reservation_type_analytics}}
+    </ul>
+</section>
+
+
+<footer class="w3l-footer-29-main">
+    <div class="footer-29 pt-5 pb-4">
+        <div class="container pt-md-4">
+            <div class="row footer-top-29">
+                <div class="col-lg-4 col-md-4 footer-list-29">
+                    <h6 class="footer-title-29">Contact Info</h6>
+                    <p class="mb-2 pe-xl-5">Address: Jove Ilića 154, Beograd 11000.</p>
+                    <p class="mb-2">Phone Number: <a href="tel:+381 11 3950 800">+381 11 3950 800</a></p>
+                </div>
+                <div class="col-lg-4 col-md-4 footer-list-29">
+                    <h6 class="footer-title-29">Quick Links</h6>
+                    <ul>
+                        <li><a href="/home">Dashboard</a></li>
+                        <li><a href="/classRooms">ClassRooms</a></li>
+                        <li><a href="/reservations">Reservations</a></li>
+                        <li><a href="/users">Users</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-3 col-4 mt-1">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2832.3730292186438!2d20.4753475!3d44.7731999!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475a70576248bf79%3A0xadaf5cff042d3bd0!2sFaculty%20of%20Organizational%20Sciences!5e0!3m2!1sen!2srs!4v1658571902289!5m2!1sen!2srs"
+                            width="350" height="225" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+            <p class="copy-footer-29 text-center pt-lg-2 mt-5 pb-2">
+                © 2022 FON Booking ClassRoom System. All rights reserved. Design by Aleksandar Janković using <a href="https://w3layouts.com/" target="_blank">W3Layouts</a>
+            </p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
