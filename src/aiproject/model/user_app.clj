@@ -7,6 +7,14 @@
                            (jdbc/query conn
                                        ["SELECT * FROM classroom_booking.user_app"])))
 
+(defn read-data-with-conditions [conditions]
+  (jdbc/with-db-connection [conn db/db-spec]
+                           (let [where-clause (->> conditions
+                                                   (filter (fn [[k _]] (not (nil? (get k conditions)))))
+                                                   (map (fn [[k v]] (str k " = ?")))
+                                                   (clojure.string/join " AND "))]
+                             (jdbc/query conn (str "SELECT * FROM classroom_booking.user_app WHERE " where-clause) (vals conditions)))))
+
 (defn process-data [data]
   (doseq [row data]
     (println (str "user: :first_name: " (:first_name row) ", :last_name: " (:last_name row) ", :email: " (:email row) )

@@ -1,4 +1,4 @@
-(ns aiproject.classroom_type_test
+(ns aiproject.integration_tests.classroom_type_test
   (:require [clojure.test :refer :all]
             [aiproject.core :refer :all]
             [aiproject.model.classroom_type :refer :all :as classroom_type]
