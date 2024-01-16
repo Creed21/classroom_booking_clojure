@@ -10,6 +10,7 @@
                  [org.postgresql/postgresql "42.2.23"]
                  [de.ubercode.clostache/clostache "1.4.0"]
                  [ring/ring-jetty-adapter "1.9.6"]
+                 [cheshire "5.10.0"]
                  ]
   :repl-options {:init-ns aiproject.core}
   :profiles {:dev {:dependencies [[lein-midje "3.2.1"]]

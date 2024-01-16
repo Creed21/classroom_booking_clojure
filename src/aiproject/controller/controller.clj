@@ -35,8 +35,6 @@
 (defn update-classroom [id data]
   (render-template "classrooms" {:classrooms (classroom/update-data id data )}))
 
-(defn classroom-filtered [condition]
-  (render-template "reservations" {:reservations (reservation/read-data-with-conditions condition )}))
 
 (defn delete-classroom [id]
   (render-template "classrooms" {:classrooms (classroom/delete-data id )}))
@@ -58,8 +56,6 @@
 (defn all-reservations []
   (render-template "reservations" {:reservations (reservation/read-data )}))
 
-(defn reservations-filtered [condition]
-  (render-template "reservations" {:reservations (reservation/read-data-with-conditions condition )}))
 
 (defn new-reservation [data]
   (render-template "makeReservation" {:reservation (reservation/insert-data data )}))
