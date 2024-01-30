@@ -1,26 +1,20 @@
-# aiproject
+# classroom_booking clojure final project
 Clojure, Mustache, and Ring/Jetty-Adapter are all important components in web development with Clojure.
 
 # Clojure:
-
 Clojure is a dynamic, functional programming language that runs on the Java Virtual Machine (JVM). It emphasizes immutability and persistent data structures, making it an excellent choice for building robust and scalable applications.
-Mustache:
  
 # Mustache:
 is a logic-less templating language. It allows for the separation of presentation and logic in web applications. Mustache templates are easy to read and write, making them a popular choice for rendering HTML in web applications.
 
 # Ring/Jetty-Adapter:
-
 Ring is a web application library for Clojure that provides a simple and composable interface for handling HTTP requests and responses. It abstracts away the details of working with web servers, making it easier to develop web applications in Clojure. Jetty-Adapter is a specific adapter for Ring that allows you to deploy your Clojure web application on the Jetty web server.
-
 Together, Ring and Jetty-Adapter provide a solid foundation for building web applications in Clojure. Ring handles the request-response cycle, while Jetty-Adapter allows you to deploy and run your Clojure application on a web server.
-
 This combination provides a clean and efficient way to handle HTTP requests and serve web content using Clojure.
-
 In a typical Clojure web application, you'll use Ring to handle HTTP requests, Mustache for templating, and a web server like Jetty (with the help of Jetty-Adapter) to serve the application to users.
-
 Overall, these technologies work together to provide a powerful and expressive framework for building web applications in Clojure, leveraging the strengths of functional programming and the JVM ecosystem.
 
+---------------------------------------------------------------------------------------------------------
 ## About the application
 
 ### Title: Reservation Management Application
@@ -246,6 +240,78 @@ Concentrates on testing APIs in isolation.
 Verifies that APIs adhere to their specifications and perform as expected.
 Evaluates how well APIs handle data requests and responses.
 In project integration tests are under the test.classroom_booking.rest_api_test package
+
+* Also be aware of testing environment and starting database state before you start testing.
+* When conducting tests, especially integration tests involving a database, 
+* it's crucial to manage the testing environment and the database state to ensure accurate and reliable results.
+
+---------------------------------------------------------------------------------------------------------
+### Specially enthusiastic about dynamic querying clojure vs java
+
+In this Clojure function, read-data-with-conditions takes a map of conditions and builds a WHERE 
+clause dynamically based on non-nil key-value pairs in the conditions. 
+It then uses the jdbc/query function to execute a SQL SELECT query with the generated WHERE clause.
+
+```
+Clojure dynamic querying
+(defn read-data-with-conditions [conditions]
+(jdbc/with-db-connection [conn db/db-spec]
+(let [where-clause (->> conditions
+(filter (fn [[k _]] (not (nil? (get k conditions)))))
+(map (fn [[k v]] (str k " = ?")))
+(clojure.string/join " AND "))]
+(jdbc/query conn (str "SELECT * FROM classroom_booking.classroom WHERE " where-clause) (vals conditions)))))
+```
+
+These two methods are part of a class, likely named GenericObject, 
+and they are used for dynamically building a SELECT query and a WHERE clause based on the fields of the class instance.
+
+This method is responsible for constructing a SELECT query.
+
+```
+JAVA dynamic querying
+
+public String makeSelectRefl() {
+return "SELECT "+getColumNamesRefl()
++"\nFROM " +  getClassName()//className
++"\n"+getGenericWhere()
++getWhereRefl();
+}
+```
+This method iterates through the declared fields of the class and builds a WHERE clause based on the non-null field values.
+```
+protected String getWhereRefl() {
+String where = "";
+for(Field f : this.getClass().getDeclaredFields()) {
+f.setAccessible(true);
+if(f.getName().contains("serialVersionUID")) {
+f.setAccessible(false);
+continue;
+}
+String field_name = f.getName();
+String attr_type = f.getType().getName();
+attr_type = attr_type.substring(attr_type.lastIndexOf(".")+1);
+
+            Object field_value = null;
+            try {
+                field_value = f.get(this);
+            } catch (IllegalArgumentException | IllegalAccessException ex) {Logger.getLogger(GenericObject.class.getName()).log(Level.SEVERE, null, ex); }            
+
+            if(field_value == null)  continue;
+
+            where += "\n and "+field_name+" = ";
+            where += getFieldValueFromType(attr_type, field_value);// getFieldValueFromType(attr_type, where, field_value);
+            f.setAccessible(false);
+        }
+        
+        return where;
+    }
+```
+
+Clojure is a functional language, and Java is an object-oriented language. 
+They follow different programming paradigms, impacting how problems are approached and solved.
+
+From this example we can see that the problem is much easier to solve in functional paradigm in clojure than in OOP in java.
 
 ---------------------------------------------------------------------------------------------------------
 ## Sources
