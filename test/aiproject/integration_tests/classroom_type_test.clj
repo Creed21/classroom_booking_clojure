@@ -5,23 +5,31 @@
             :use [midje.sweet]  ))
 
 (midje.sweet/facts "Test inserting classroom_type data"
-                   (classroom_type/insert-data {:id 1 :dsc "type-1"}) => true
+                   (.fact "insert classroom type 1"
+                      (classroom_type/insert-data {:id 1 :dsc "type-1"}) => true
+                    )
 
-                   (classroom_type/insert-data {:id 2 :dsc "type-2"}) => true
-
+                  (.fact "insert classroom type 2"
+                    (classroom_type/insert-data {:id 2 :dsc "type-2"}) => true
                    )
+)
 
 (midje.sweet/facts "Test Find classroom_type"
-                   (let [result (classroom_type/read-data)]
-                     result => ( (seq result)))
-                   ) => true
+                   (.fact "check that classroom type has rows after inserting"
+                     (let [result (classroom_type/read-data)]
+                       result => ( (seq result)))
+                     ) => true
+                   )
 
 
 (midje.sweet/facts "Test Update classroom_type"
-                   (classroom_type/update-data 2 { :dsc "123"}) => {:id 2 :dsc "type-2"}
-
-                   )
+                   (.fact "update classroom type"
+                    (classroom_type/update-data 2 { :dsc "123"}) => {:id 2 :dsc "type-2"}
+                    )
+)
 
 (midje.sweet/facts "Test Delete user"
-                   (classroom_type/delete-data 2 ) => true
+                   (.fact "delete classroom type 2"
+                    (classroom_type/delete-data 2 ) => true
                    )
+)

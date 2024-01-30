@@ -5,40 +5,50 @@
             :use [midje.sweet]  ))
 
 (midje.sweet/facts "Test inserting classroom data"
-                   (classroom/insert-data {:id 1
-                                           :dsc "Classroom A"
-                                           :peopleCapacity 30
-                                           :hasComputers true
-                                           :computerCapacity 20
-                                           :classRoom_type 1}) => true
-                   )
+                   (.fact "insert classroom 1"
+                     (classroom/insert-data {:id 1
+                                             :dsc "Classroom A"
+                                             :peopleCapacity 30
+                                             :hasComputers true
+                                             :computerCapacity 20
+                                             :classRoom_type nil}) => true
+                     )
+)
 
 (midje.sweet/facts "Test read classroom with conditions data"
-                   (classroom/insert-data {:id 2
-                                           :dsc "109"
-                                           :peopleCapacity 30
-                                           :hasComputers true
-                                           :computerCapacity 20
-                                           :classRoom_type 1}) => true
+                   (.fact "insert classroom 2"
+                     (classroom/insert-data {:id 2
+                                             :dsc "109"
+                                             :peopleCapacity 30
+                                             :hasComputers true
+                                             :computerCapacity 20
+                                             :classRoom_type nil}) => true
+                   )
 
-                   (classroom/read-data-with-conditions {:dsc "109"
+                   (.fact "find inserted classroom with conditions dsc and people capacity"
+                     (classroom/read-data-with-conditions {:dsc "109"
                                                          :peopleCapacity 30
                                                          })
-                   => (.contains {:id 2
-                                 :dsc "109"
-                                 :peopleCapacity 30
-                                 :hasComputers true
-                                 :computerCapacity 20
-                                 :classRoom_type 1})
+                     => (.contains {:id 2
+                                   :dsc "109"
+                                   :peopleCapacity 30
+                                   :hasComputers true
+                                   :computerCapacity 20
+                                   :classRoom_type nil})
                    )
+)
 
 
 (midje.sweet/facts "Test Find classroom"
-                   (let [result (classroom/read-data)]
-                     result => ( (seq result)))
+                   (.fact "check that classroom table has rows after inserting"
+                     (let [result (classroom/read-data)]
+                       result => ( (seq result)))
                    ) => true
+)
 
 
 (midje.sweet/facts "Test Delete classroom"
-                   (classroom/delete-data 1 ) => true
-                   )
+                   (.fact "delete classroom 1"
+                     (classroom/delete-data 1 ) => true
+                     )
+)

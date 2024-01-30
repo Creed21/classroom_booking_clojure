@@ -4,15 +4,28 @@
             [aiproject.model.reservation :refer :all :as reservation]
             [aiproject.model.reservation_type :refer :all :as reservation_type]
             [aiproject.model.user_app :refer :all :as user_app]
-            :use
-            [midje.sweet])
+            :use [midje.sweet])
   (:import (java.sql Timestamp)))
 
 (midje.sweet/facts "Test inserting reservation data"
-                   (reservation_type/insert-data {:id 1
-                                                  :dsc "Meeting"
-                                                  }) => true
-                   (reservation/insert-data {:id 1
+                   (.fact "insert reservation type for reservation"
+                     (reservation_type/insert-data {:id 1
+                                                    :dsc "Meeting"
+                                                    }) => true
+                   )
+
+                   (.fact "insert user for reservation"
+                     (user_app/insert-data {:first_name "user123" :last_name "user123"
+                                            :email "user123@yahoo.com"
+                                            :telephone "060/59-11-xxx"
+                                            :username "user123"
+                                            :pass "1"
+                                            :active true
+                                            :role_id "A"}) => true
+                  )
+
+                   (.fact "insert reservation for user123"
+                    (reservation/insert-data {:id 1
                                              :classroom 1
                                              :dsc "Meeting Room 1"
                                              :reservation_type 1
@@ -20,15 +33,18 @@
                                              :end_asked (Timestamp. (+ (System/currentTimeMillis) 3600000)) ; One hour later
                                              :reservation_for_user "user123"
                                              :status_id 1
-                                             :status_changed_by "admin"
+                                             :status_changed_by "user123"
                                              :beginning_approved (Timestamp. (+ (System/currentTimeMillis) 7200000)) ; Two hours later
-                                             :end_approved (Timestamp. (+ (System/currentTimeMillis) 10800000))})
-                   ) => true
+                                             :end_approved (Timestamp. (+ (System/currentTimeMillis) 10800000))}) ; Three hours later
+                   )
+)
 
 (midje.sweet/facts "Test Find reservation"
-                   (let [result (reservation/read-data)]
-                     result => ( not-empty (seq result)))
-                   ) => true
+                   (.fact "check that the reservation table has rows after inserting"
+                     (let [result (reservation/read-data)]
+                       result => ( not-empty (seq result)))
+                     ) => true
+                   )
 
 
 (midje.sweet/facts "Test updating reservation data"
@@ -72,5 +88,7 @@
 
 
 (midje.sweet/facts "Test Delete reservation"
-                   (reservation/delete-data 1 ) => true
+                   (.fact "delete reservation with id 1"
+                    (reservation/delete-data 1 ) => true
                    )
+)
