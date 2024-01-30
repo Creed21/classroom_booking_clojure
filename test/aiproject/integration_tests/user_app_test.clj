@@ -75,6 +75,7 @@
                        :email "new.email@gmail.com"
                        :telephone "123"
                        :username "milan"
+
                        :pass "1"
                        :active false
                        :role_id "A"})

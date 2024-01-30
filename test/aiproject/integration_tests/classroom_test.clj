@@ -21,10 +21,9 @@
                                            :computerCapacity 20
                                            :classRoom_type 1}) => true
 
-                   (classroom/read-data-with-conditions {
-                                                               :dsc "109"
-                                                               :peopleCapacity 30
-                                                               })
+                   (classroom/read-data-with-conditions {:dsc "109"
+                                                         :peopleCapacity 30
+                                                         })
                    => (.contains {:id 2
                                  :dsc "109"
                                  :peopleCapacity 30

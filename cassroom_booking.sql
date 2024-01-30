@@ -54,6 +54,10 @@ create table reservation (
 	status_id numeric,
 	status_changed_by text,
 	beginning_approved timestamp,
-	end_approved timestamp
+	end_approved timestamp,
+	constraint fk_reservation_reservation_type foreign key(reservation_type) references reservation_type(id),
+	constraint fk_reservation_status_id foreign key(status_id) references reservation_status(id),
+	constraint fk_reservation_user foreign key(reservation_for_user) references user_app(userName),
+	constraint fk_reservation_status_changed_by foreign key(status_changed_by) references user_app(userName)
 );
 
